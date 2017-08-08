@@ -16,16 +16,16 @@ from markdown_note.note_remove import note_remove
 
 
 def note_move(src, dst):
-    """move note
-
-    :return: 0 = moved
-             1 = not moved
-    """
-    return_code = note_copy(src, dst)
-    if return_code == 0:
-        note_remove(src)
-        return 0
-    return 1
+    copy_type = note_copy(src, dst)
+    if copy_type == 0:
+        # not copied
+        pass
+    elif copy_type == 1:
+        # shallow copied
+        note_remove(src, backup=False)
+    elif copy_type == 2:
+        # deep copied
+        note_remove(src, backup=True)
 
 
 def main():

@@ -36,9 +36,32 @@ link_re_pattern = '(\[.*?\]\()(.*?)(_files/.*?\))'
 def note_copy(src, dst):
     """copy note
 
-    :return: 0 = copied
-             1 = not copied
+    :return: 0 = not copied
+             1 = shallow copied
+             2 = deep copied
     """
+    path_params_dict = get_path_params_dict(src, dst)
+
+    # different type of copy
+    if path_params_dict['dst'] == path_params_dict['src']:
+        # not need to copy
+        copy_type = 0
+    elif path_params_dict['dst_base'] == path_params_dict['src_base']:
+        # not need to rename, but need to move only
+        copy_type = 1
+        shallow_copy_file(path_params_dict)
+        copy_folder(path_params_dict)
+    else:
+        # need to rename, and to move if required
+        copy_type = 2
+        deep_copy_file(path_params_dict)
+        copy_folder(path_params_dict)
+    return copy_type
+
+
+def get_path_params_dict(src, dst):
+    params_dict = dict()
+    # validate and parse src file name
     # validate src file name
     if not os.path.exists(src):
         raise Exception('%s: No such file' % src)
@@ -51,6 +74,7 @@ def note_copy(src, dst):
     src_folder = os.path.join(src_dir, src_base + FOLDER_SUFFIX)
 
     # validate and parse dst file name
+    # dst may be changed
     if os.path.exists(dst) and os.path.isfile(dst):
         # do not overwrite
         raise Exception('%s exists (not overwritten)' % dst)
@@ -65,10 +89,38 @@ def note_copy(src, dst):
             dst = os.path.join(dst_dir, dst_base + dst_ext)
     dst_folder = os.path.join(dst_dir, dst_base + FOLDER_SUFFIX)
 
-    # validate more
-    if dst == src:
-        return 1  # dst may be changed
+    # return the result
+    params_dict['src'] = src
+    params_dict['src_base'] = src_base
+    params_dict['src_ext'] = src_ext
+    params_dict['src_folder'] = src_folder
+    params_dict['dst'] = dst
+    params_dict['dst_base'] = dst_base
+    params_dict['dst_ext'] = dst_ext
+    params_dict['dst_folder'] = dst_folder
+    return params_dict
 
+
+def copy_folder(path_params_dict):
+    src_folder = path_params_dict['src_folder']
+    dst_folder = path_params_dict['dst_folder']
+    if os.path.exists(src_folder) and os.path.isdir(src_folder):
+        # metadata is copied as well
+        shutil.copytree(src_folder, dst_folder)
+
+
+def shallow_copy_file(path_params_dict):
+    src = path_params_dict['src']
+    dst = path_params_dict['dst']
+    # metadata is copied as well
+    shutil.copy2(src, dst)
+
+
+def deep_copy_file(path_params_dict):
+    src = path_params_dict['src']
+    src_base = path_params_dict['src_base']
+    dst = path_params_dict['dst']
+    dst_base = path_params_dict['dst_base']
     # parse text
     text_lines = []
     # read src file
@@ -111,13 +163,6 @@ def note_copy(src, dst):
     # write dst file
     with codecs.open(dst, 'w', encoding='utf-8') as f:
         f.writelines(text_lines)
-
-    # copy folder
-    if os.path.exists(src_folder) and os.path.isdir(src_folder):
-        # metadata is copied as well
-        shutil.copytree(src_folder, dst_folder)
-
-    return 0  # dst may be changed
 
 
 def replace_match(match, old_str, new_str):
