@@ -7,6 +7,10 @@ version: 1.0.0
 desc:    Command Line on Markdown Notes.
 """
 # todo：copy函数需要区分是否需要替换文本，若是仅仅移动在可靠的情况下则无需保存原有文件。通过返回值表示。
+# todo：单元测试
+# todo：安装
+# todo：命令行回归测试
+# todo：开发sublime扩展包
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
@@ -49,9 +53,9 @@ Usage:
 """
 
 
-def remove(file):
+def remove(filename):
     from markdown_note.note_remove import note_remove
-    note_remove(file)
+    note_remove(filename)
 
 
 def copy(source, target):
@@ -64,9 +68,9 @@ def move(source, target):
     note_move(source, target)
 
 
-def offline(file):
+def offline(filename):
     from markdown_note.note_offline import note_offline
-    note_offline(file)
+    note_offline(filename)
 
 
 def main():
@@ -78,8 +82,8 @@ def main():
     if len(sys.argv) >= 2:
         try:
             if sys.argv[1].lower() in ['rm', 'remove'] and len(sys.argv) == 3:
-                file = sys.argv[2]
-                remove(file)
+                filename = sys.argv[2]
+                remove(filename)
                 return 0
 
             if sys.argv[1].lower() in ['cp', 'copy'] and len(sys.argv) == 4:
@@ -95,8 +99,8 @@ def main():
                 return 0
 
             if sys.argv[1].lower() in ['offline'] and len(sys.argv) == 3:
-                file = sys.argv[2]
-                offline(file)
+                filename = sys.argv[2]
+                offline(filename)
                 return 0
         except Exception as e:
             print(e)

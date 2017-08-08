@@ -32,12 +32,12 @@ from markdown_note.note_lib import parse_file_name
 image_regex = re.compile('!\[.*?\]\((http.+?)\)')
 
 
-def note_offline(file):
-    # validate file name
-    if not os.path.exists(file):
-        raise Exception('%s: No such file' % file)
+def note_offline(filename):
+    # validate filename name
+    if not os.path.exists(filename):
+        raise Exception('%s: No such filename' % filename)
     # create folder
-    dir_path, base_name, ext_name = parse_file_name(file)
+    dir_path, base_name, ext_name = parse_file_name(filename)
     if ext_name not in SUPPORT_EXT_LIST:
         raise Exception('UNKNOWN FILE TYPE')
     folder_name = base_name + FOLDER_SUFFIX
@@ -45,8 +45,8 @@ def note_offline(file):
 
     # parse text
     text_lines = []
-    # read original file
-    with codecs.open(file, 'r', encoding='utf-8') as f:
+    # read original filename
+    with codecs.open(filename, 'r', encoding='utf-8') as f:
         map_url_to_name = dict()
         for line in f:
             # extract image url
@@ -73,15 +73,15 @@ def note_offline(file):
             # output the result
             text_lines.append(''.join(line_builder))
 
-    # move original file to Trash
+    # move original filename to Trash
     # use time stamp to resolve the filename conflict in Trash
     time_str = time.strftime("%H%M%S", time.localtime())
     # os.rename works only if source and destination are on the same volume.
     # using shutil.move instead.
-    shutil.move(file, os.path.join(TRASH_DIR, base_name + ext_name + '_' + time_str + ext_name))
+    shutil.move(filename, os.path.join(TRASH_DIR, base_name + ext_name + '_' + time_str + ext_name))
 
-    # write new file
-    with codecs.open(file, 'w', encoding='utf-8') as f:
+    # write new filename
+    with codecs.open(filename, 'w', encoding='utf-8') as f:
         f.writelines(text_lines)
 
     # clean folder
@@ -102,9 +102,9 @@ def download_image(url):
         raise Exception('INTERNET DISCONNECTED')
 
 
-def save_image(data, file):
-    with codecs.open(file, 'wb') as f:
-        f.write(data)
+def save_image(image_data, image_file):
+    with codecs.open(image_file, 'wb') as f:
+        f.write(image_data)
 
 
 def clean_empty_folder(directory):

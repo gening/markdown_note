@@ -26,7 +26,7 @@ def get_trash_dir():
 TRASH_DIR = get_trash_dir()
 
 
-def parse_file_name(file):
-    dir, base_ext = os.path.split(file)
+def parse_file_name(filename):
+    dir_path, base_ext = os.path.split(filename)
     base, ext = os.path.splitext(base_ext)
-    return dir, base, ext
+    return dir_path, base, ext

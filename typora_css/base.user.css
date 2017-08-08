@@ -1,0 +1,11 @@
+/*
+Write Custom Theme for Typora
+http://theme.typora.io/doc/Write-Custom-Theme/
+*/
+
+code {
+    border: 1px solid #ddd;
+    background-color: #ffff00;
+    color: #000000;
+    font-size: 1em;
+}

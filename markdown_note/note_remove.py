@@ -24,36 +24,37 @@ from markdown_note.note_lib import TRASH_DIR
 from markdown_note.note_lib import parse_file_name
 
 
-def note_remove(file):
-    # validate file name
-    if not os.path.exists(file):
-        raise Exception('%s: No such file' % file)
-    # parse file name
-    dir_path, base_name, ext_name = parse_file_name(file)
+def note_remove(filename):
+    # validate filename name
+    if not os.path.exists(filename):
+        raise Exception('%s: No such filename' % filename)
+    # parse filename name
+    dir_path, base_name, ext_name = parse_file_name(filename)
     if ext_name not in SUPPORT_EXT_LIST:
         raise Exception('UNKNOWN FILE TYPE')
     folder = os.path.join(dir_path, base_name + FOLDER_SUFFIX)
 
-    # move file and folder to Trash
+    # move filename and folder to Trash
     # use time stamp to resolve the filename conflict in Trash
     time_str = time.strftime("%H%M%S", time.localtime())
     if os.path.exists(folder) and os.path.isdir(folder):
-        # compress file and folder into a zip file
+        # compress filename and folder into a zip filename
         zip_file_name = os.path.join(TRASH_DIR, base_name + ext_name + '_' + time_str + '.zip')
         with ZipFile(zip_file_name, 'w') as zf:
             # relative path for zip archive
-            zf.write(file, file[len(dir_path):])
+            zf.write(filename, filename[len(dir_path):])
             for root, dirs, files in os.walk(folder):
                 for name in files:
                     full_name = os.path.join(root, name)
                     zf.write(full_name, full_name[len(dir_path):])
-        os.remove(file)
+        os.remove(filename)
         shutil.rmtree(folder)
     else:
-        # move original file to Trash
+        # move original filename to Trash
         # os.rename works only if source and destination are on the same volume.
         # using shutil.move instead.
-        shutil.move(file, os.path.join(TRASH_DIR, base_name + ext_name + '_' + time_str + ext_name))
+        shutil.move(filename, os.path.join(TRASH_DIR,
+                                           base_name + ext_name + '_' + time_str + ext_name))
     return 0
 
 
