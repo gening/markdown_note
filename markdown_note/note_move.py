@@ -13,6 +13,7 @@ import sys
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_copy import note_copy
 from markdown_note.note_remove import note_remove
+from markdown_note.note_lib import str_decode_utf8
 
 
 def note_move(src, dst):
@@ -31,8 +32,8 @@ def note_move(src, dst):
 def main():
     if len(sys.argv) == 3:
         try:
-            markdown_src = sys.argv[1]
-            markdown_dst = sys.argv[2]
+            markdown_src = str_decode_utf8(sys.argv[1])
+            markdown_dst = str_decode_utf8(sys.argv[2])
             note_move(markdown_src, markdown_dst)
             return 0
         except Exception as e:

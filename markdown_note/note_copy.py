@@ -24,6 +24,7 @@ sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
 from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import parse_file_name
+from markdown_note.note_lib import str_decode_utf8
 
 # ![abc](xxx_files/image_1.jpg)
 # [abc](xxx_files/doc_1.pdf)
@@ -176,8 +177,8 @@ def replace_match(match, old_str, new_str):
 def main():
     if len(sys.argv) == 3:
         try:
-            markdown_src = sys.argv[1]
-            markdown_dst = sys.argv[2]
+            markdown_src = str_decode_utf8(sys.argv[1])
+            markdown_dst = str_decode_utf8(sys.argv[2])
             note_copy(markdown_src, markdown_dst)
             return 0
         except Exception as e:

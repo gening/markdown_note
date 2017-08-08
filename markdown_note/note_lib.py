@@ -8,6 +8,7 @@ desc:    constraints
 """
 import os
 import platform
+from six import PY2
 
 SUPPORT_EXT_LIST = ['.md', '.markdown']
 FOLDER_SUFFIX = '_files'
@@ -31,3 +32,6 @@ def parse_file_name(filename):
     dir_path, base_ext = os.path.split(filename)
     base, ext = os.path.splitext(base_ext)
     return dir_path, base, ext
+
+def str_decode_utf8(str):
+    return str.decode('utf-8') if PY2 else str

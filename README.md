@@ -12,7 +12,8 @@ dir
     └── image_2.jpg
 ```
 
-Usage:
+Usage
+-----
 ```
   note <  rm  | cp | mv |offline> ...
   note <remove|copy|move|offline> ...
@@ -24,7 +25,8 @@ Usage:
   note-offline <file>
 ```
 
-Operations:
+Operations
+----------
 
 *  note remove  = note rm =  note-rm: 
           delete `xxx.md` file and `xxx_files` folder.
@@ -37,3 +39,20 @@ Operations:
 
 * note-offline: 
          download images linked within `xxx.md` file into `xxx_files` folder.
+
+
+Installation
+------------
+
+This program has been tested in Python 3.6 and Python 2.7, 
+and is compatible with Python 3.x and Python 2.6-2.7.
+
+Ensure pip is already installed, then run: 
+
+```shell
+$ pip install ./cul-pattern-exercise/
+```
+pip will install the prerequisite package `six` and `requests` at the same time.
+
+Once the installation has been done successfully, 
+the shell-commands are available under $PATH.

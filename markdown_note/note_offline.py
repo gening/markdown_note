@@ -27,6 +27,7 @@ from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import TRASH_DIR
 from markdown_note.note_lib import TIMESTAMP_FORMAT
 from markdown_note.note_lib import parse_file_name
+from markdown_note.note_lib import str_decode_utf8
 
 # ![abc](http://www.xyz.com/123.jpg)
 # group(1) = http://www.xyz.com/123.jpg
@@ -120,7 +121,7 @@ def clean_empty_folder(directory):
 def main():
     if len(sys.argv) == 2:
         try:
-            markdown_file = sys.argv[1]
+            markdown_file = str_decode_utf8(sys.argv[1])
             note_offline(markdown_file)
             return 0
         except Exception as e:

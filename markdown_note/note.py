@@ -14,6 +14,7 @@ import os
 import sys
 
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
+from markdown_note.note_lib import str_decode_utf8
 
 usage = """Manage a markdown file (.md) and its attached files in the same time.
 The attached files are all included in the folder whose name has the suffix `_files` 
@@ -77,24 +78,24 @@ def main():
     if len(sys.argv) >= 2:
         try:
             if sys.argv[1].lower() in ['rm', 'remove'] and len(sys.argv) == 3:
-                filename = sys.argv[2]
+                filename = str_decode_utf8(sys.argv[2])
                 remove(filename)
                 return 0
 
             if sys.argv[1].lower() in ['cp', 'copy'] and len(sys.argv) == 4:
-                source = sys.argv[2]
-                target = sys.argv[3]
+                source = str_decode_utf8(sys.argv[2])
+                target = str_decode_utf8(sys.argv[3])
                 copy(source, target)
                 return 0
 
             if sys.argv[1].lower() in ['mv', 'move'] and len(sys.argv) == 4:
-                source = sys.argv[2]
-                target = sys.argv[3]
+                source = str_decode_utf8(sys.argv[2])
+                target = str_decode_utf8(sys.argv[3])
                 move(source, target)
                 return 0
 
             if sys.argv[1].lower() in ['offline'] and len(sys.argv) == 3:
-                filename = sys.argv[2]
+                filename = str_decode_utf8(sys.argv[2])
                 offline(filename)
                 return 0
         except Exception as e:
