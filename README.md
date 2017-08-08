@@ -50,7 +50,7 @@ and is compatible with Python 3.x and Python 2.6-2.7.
 Ensure pip is already installed, then run: 
 
 ```shell
-$ pip install ./cul-pattern-exercise/
+$ pip install ./markdown_note/
 ```
 pip will install the prerequisite package `six` and `requests` at the same time.
 
