@@ -6,11 +6,6 @@ date:    2017-08-07 20:09:01
 version: 1.0.0
 desc:    Command Line on Markdown Notes.
 """
-# todo：copy函数需要区分是否需要替换文本，若是仅仅移动在可靠的情况下则无需保存原有文件。通过返回值表示。
-# todo：单元测试
-# todo：安装
-# todo：命令行回归测试
-# todo：开发sublime扩展包
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
