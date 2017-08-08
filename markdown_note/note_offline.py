@@ -42,7 +42,7 @@ def note_offline(filename):
     if ext_name not in SUPPORT_EXT_LIST:
         raise Exception('UNKNOWN FILE TYPE')
     folder_name = base_name + FOLDER_SUFFIX
-    create_image_folder(dir_path + '/' + folder_name)
+    create_image_folder(os.path.join(dir_path, folder_name))
 
     # parse text
     text_lines = []
