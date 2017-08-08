@@ -21,6 +21,7 @@ sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
 from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import TRASH_DIR
+from markdown_note.note_lib import TIMESTAMP_FORMAT
 from markdown_note.note_lib import parse_file_name
 
 
@@ -37,7 +38,7 @@ def note_remove(filename, backup=True):
     if backup:
         # move file and folder to Trash
         # use time stamp to resolve the filename conflict in Trash
-        time_str = time.strftime("%H%M%S", time.localtime())
+        time_str = time.strftime(TIMESTAMP_FORMAT, time.localtime())
         if os.path.exists(folder) and os.path.isdir(folder):
             # compress filename and folder into a zip filename
             zip_file_name = os.path.join(TRASH_DIR, base_name + ext_name + '_' + time_str + '.zip')

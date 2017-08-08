@@ -11,6 +11,7 @@ import platform
 
 SUPPORT_EXT_LIST = ['.md', '.markdown']
 FOLDER_SUFFIX = '_files'
+TIMESTAMP_FORMAT = '%H%M%S'
 
 
 def get_trash_dir():
