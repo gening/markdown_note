@@ -26,14 +26,14 @@ Usage:
 
 Operations:
 
-*  note remove  = note rm =  note-rm
+*  note remove  = note rm =  note-rm: 
           delete `xxx.md` file and `xxx_files` folder.
 
-* note copy    = note cp =  note-cp
+* note copy    = note cp =  note-cp: 
          make a copy of `xxx.md` file with `xxx_files` folder.
 
-* note move    = note mv =  note-mv
+* note move    = note mv =  note-mv: 
          move or rename `xxx.md` file with `xxx_files` folder.
 
-* note-offline 
+* note-offline: 
          download images linked within `xxx.md` file into `xxx_files` folder.
