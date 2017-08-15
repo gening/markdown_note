@@ -23,24 +23,35 @@ Usage
   note-mv <source_file> <target_file>
   note-mv <source_file> <target_directory>
   note-offline <file>
+  note mkdir <file>
+  note rmdir <file>
+  note opendir <file>
 ```
 
 Operations
 ----------
 
-*  note remove  = note rm =  note-rm: 
-          delete `xxx.md` file and `xxx_files` folder.
+* note remove  = note rm =  note-rm:  
+  delete `xxx.md` file and `xxx_files` folder.
 
-* note copy    = note cp =  note-cp: 
-         make a copy of `xxx.md` file with `xxx_files` folder.
+* note copy    = note cp =  note-cp:  
+  make a copy of `xxx.md` file with `xxx_files` folder.
 
-* note move    = note mv =  note-mv: 
-         move or rename `xxx.md` file with `xxx_files` folder.
+* note move    = note mv =  note-mv:  
+  move or rename `xxx.md` file with `xxx_files` folder.
 
-* note-offline: 
+* note-offline:  
          download images linked within `xxx.md` file into `xxx_files` folder.
 
+* note-mkdir:  
+  make `xxx_files` folder attached to `xxx.md` file.
+               
+* note-rmdir:  
+  remove empty `xxx_files` folder detached to `xxx.md` file.
 
+* note- opendir:  
+  open `xxx_files` folder attached to `xxx.md` file.  
+         
 Installation
 ------------
 

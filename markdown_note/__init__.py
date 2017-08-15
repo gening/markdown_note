@@ -11,3 +11,5 @@ __author__ = "GE Ning <benjaminzge@gmail.com>"
 __copyright__ = "Copyright (C) 2017 GE Ning"
 __license__ = "MIT License"
 __version__ = "1.0.0"
+
+# todo sublime扩展

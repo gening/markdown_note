@@ -126,6 +126,9 @@ setup_args = dict(
             'note-cp=markdown_note.note_copy:main',
             'note-mv=markdown_note.note_move:main',
             'note-offline=markdown_note.note_offline:main',
+            'note-mkdir=markdown_note.note_mkdir:main',
+            'note-rmdir=markdown_note.note_rmdir:main',
+            'note-opendir=markdown_note.note_opendir:main',
         ],
     },
 )

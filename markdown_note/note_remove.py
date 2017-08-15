@@ -29,7 +29,7 @@ from markdown_note.note_lib import str_decode_utf8
 def note_remove(filename, backup=True):
     # validate filename name
     if not os.path.exists(filename):
-        raise Exception('%s: No such filename' % filename)
+        raise Exception('%s: No such file' % filename)
     # parse filename name
     dir_path, base_name, ext_name = parse_file_name(filename)
     if ext_name not in SUPPORT_EXT_LIST:

@@ -27,6 +27,8 @@ from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import TRASH_DIR
 from markdown_note.note_lib import TIMESTAMP_FORMAT
 from markdown_note.note_lib import parse_file_name
+from markdown_note.note_lib import create_new_folder
+from markdown_note.note_lib import clean_empty_folder
 from markdown_note.note_lib import str_decode_utf8
 
 # ![abc](http://www.xyz.com/123.jpg)
@@ -37,13 +39,13 @@ image_regex = re.compile('!\[.*?\]\((http.+?)\)')
 def note_offline(filename):
     # validate filename name
     if not os.path.exists(filename):
-        raise Exception('%s: No such filename' % filename)
+        raise Exception('%s: No such file' % filename)
     # create folder
     dir_path, base_name, ext_name = parse_file_name(filename)
     if ext_name not in SUPPORT_EXT_LIST:
         raise Exception('UNKNOWN FILE TYPE')
     folder_name = base_name + FOLDER_SUFFIX
-    create_image_folder(os.path.join(dir_path, folder_name))
+    create_new_folder(os.path.join(dir_path, folder_name))
 
     # parse text
     text_lines = []
@@ -90,11 +92,6 @@ def note_offline(filename):
     clean_empty_folder(os.path.join(dir_path, folder_name))
 
 
-def create_image_folder(directory):
-    if not os.path.exists(directory):
-        os.mkdir(directory)
-
-
 def download_image(url):
     result = requests.get(url)
     if result.status_code == 200:
@@ -107,15 +104,6 @@ def download_image(url):
 def save_image(image_data, image_file):
     with codecs.open(image_file, 'wb') as f:
         f.write(image_data)
-
-
-def clean_empty_folder(directory):
-    ignore = ['.DS_Store']
-    if os.path.exists(directory):
-        if os.path.isdir(directory):
-            files = os.listdir(directory)
-            if len(files) == 0 or len(set(files) - set(ignore)) == 0:
-                os.rmdir(directory)
 
 
 def main():

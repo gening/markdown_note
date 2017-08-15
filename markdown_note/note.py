@@ -34,6 +34,9 @@ Usage:
   note mv <source_file> <target_file>
   note mv <source_file> <target_directory>
   note offline <file>
+  note mkdir <file>
+  note rmdir <file>
+  note opendir <file>
 
   note remove  = note rm =  note-rm
                delete `xxx.md` file and `xxx_files` folder.
@@ -46,6 +49,15 @@ Usage:
 
   note-offline 
                download images linked within `xxx.md` file into `xxx_files` folder.
+
+  note-mkdir 
+               make `xxx_files` folder attached to `xxx.md` file.
+               
+  note-rmdir 
+               remove empty `xxx_files` folder detached to `xxx.md` file.
+
+  note- opendir
+               open `xxx_files` folder attached to `xxx.md` file.  
 """
 
 
@@ -68,6 +80,17 @@ def offline(filename):
     from markdown_note.note_offline import note_offline
     note_offline(filename)
 
+def mkdir(filename):
+    from markdown_note.note_mkdir import note_mkdir
+    note_mkdir(filename)
+
+def rmdir(filename):
+    from markdown_note.note_rmdir import note_rmdir
+    note_rmdir(filename)
+
+def opendir(filename):
+    from markdown_note.note_opendir import note_opendir
+    note_opendir(filename)
 
 def main():
     """The main entry.
@@ -98,6 +121,22 @@ def main():
                 filename = str_decode_utf8(sys.argv[2])
                 offline(filename)
                 return 0
+
+            if sys.argv[1].lower() in ['mkdir'] and len(sys.argv) == 3:
+                filename = str_decode_utf8(sys.argv[2])
+                mkdir(filename)
+                return 0
+
+            if sys.argv[1].lower() in ['rmdir'] and len(sys.argv) == 3:
+                filename = str_decode_utf8(sys.argv[2])
+                rmdir(filename)
+                return 0
+
+            if sys.argv[1].lower() in ['opendir'] and len(sys.argv) == 3:
+                filename = str_decode_utf8(sys.argv[2])
+                opendir(filename)
+                return 0
+
         except Exception as e:
             print(e)
             return 1
