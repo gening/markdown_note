@@ -30,13 +30,14 @@ TRASH_DIR = get_trash_dir()
 
 
 def open_in_os(path):
+    import subprocess
     operating_system = platform.system()
     if operating_system == 'Windows':
         return os.startfile(path)
     elif operating_system == 'Darwin':
-        return os.subprocess.call(['open', path])
+        return subprocess.run(['open', path])
     elif operating_system == 'Linux':
-        return os.subprocess.call(['xdg-open', path])
+        return subprocess.run(['xdg-open', path])
     else:
         raise Exception('UNKNOWN OPERATION')
 
@@ -65,5 +66,5 @@ def clean_empty_folder(directory):
         raise Exception('%s: Directory not empty' % directory)
 
 
-def str_decode_utf8(str):
-    return str.decode('utf-8') if PY2 else str
+def str_decode_utf8(chars):
+    return chars.decode('utf-8') if PY2 else chars

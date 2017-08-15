@@ -56,7 +56,7 @@ Installation
 ------------
 
 This program has been tested in Python 3.6 and Python 2.7, 
-and is compatible with Python 3.x and Python 2.6-2.7.
+and is compatible with Python 3.5-3.6 and Python 2.6-2.7.
 
 Ensure pip is already installed, then run: 
 
