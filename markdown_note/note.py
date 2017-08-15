@@ -48,7 +48,7 @@ Usage:
                move or rename `xxx.md` file with `xxx_files` folder.
 
   note-offline 
-               download images linked within `xxx.md` file into `xxx_files` folder.
+               download images within `xxx.md` file into `xxx_files` folder.
 
   note-mkdir 
                make `xxx_files` folder attached to `xxx.md` file.
@@ -56,7 +56,7 @@ Usage:
   note-rmdir 
                remove empty `xxx_files` folder detached to `xxx.md` file.
 
-  note- opendir
+  note-opendir
                open `xxx_files` folder attached to `xxx.md` file.  
 """
 
