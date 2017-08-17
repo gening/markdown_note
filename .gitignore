@@ -106,3 +106,6 @@ ENV/
 # macOS
 *~
 .DS_Store
+
+# sublime plugin
+sublime_package/note_side_bar.sublime-package.zip
