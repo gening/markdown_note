@@ -1,0 +1,55 @@
+[
+  {
+    "id": "NoteSideBarTools",
+    "caption": "-"
+  },
+  {
+    "caption": "Note Copy...",
+    "command": "note_side_bar_copy",
+    "args": {
+      "paths": []
+    }
+  },
+  {
+    "caption": "Note Move...",
+    "command": "note_side_bar_move",
+    "args": {
+      "paths": []
+    }
+  },
+  {
+    "caption": "Note Offline",
+    "command": "note_side_bar_offline",
+    "args": {
+      "paths": []
+    }
+  },
+  {
+    "caption": "Note mkdir",
+    "command": "note_side_bar_mkdir",
+    "args": {
+      "paths": []
+    }
+  },
+  {
+    "caption": "Note open dir",
+    "command": "note_side_bar_opendir",
+    "args": {
+      "paths": []
+    }
+  },
+  {
+    "caption": "Note rmdir",
+    "command": "note_side_bar_rmdir",
+    "args": {
+      "paths": []
+    }
+  },
+  {
+    "caption": "Note Remove",
+    "command": "note_side_bar_remove",
+    "args": {
+      "paths": []
+    }
+  }
+]

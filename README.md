@@ -63,7 +63,6 @@ Ensure pip is already installed, then run:
 ```shell
 $ pip install ./markdown_note/
 ```
-pip will install the prerequisite package `six` and `requests` at the same time.
 
 Once the installation has been done successfully, 
 the shell-commands are available under $PATH.

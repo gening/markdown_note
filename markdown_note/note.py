@@ -16,6 +16,15 @@ import sys
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import str_decode_utf8
 
+# import at the beginning to be compatible with sublime plugin
+from markdown_note.note_remove import note_remove
+from markdown_note.note_copy import note_copy
+from markdown_note.note_move import note_move
+from markdown_note.note_offline import note_offline
+from markdown_note.note_mkdir import note_mkdir
+from markdown_note.note_rmdir import note_rmdir
+from markdown_note.note_opendir import note_opendir
+
 usage = """Manage a markdown file (.md) and its attached files in the same time.
 The attached files are all included in the folder whose name has the suffix `_files` 
 additionally to the file name itself under the same directory. For example:
@@ -62,35 +71,32 @@ Usage:
 
 
 def remove(filename):
-    from markdown_note.note_remove import note_remove
     note_remove(filename)
 
 
 def copy(source, target):
-    from markdown_note.note_copy import note_copy
     note_copy(source, target)
 
 
 def move(source, target):
-    from markdown_note.note_move import note_move
     note_move(source, target)
 
 
 def offline(filename):
-    from markdown_note.note_offline import note_offline
     note_offline(filename)
 
+
 def mkdir(filename):
-    from markdown_note.note_mkdir import note_mkdir
     note_mkdir(filename)
 
+
 def rmdir(filename):
-    from markdown_note.note_rmdir import note_rmdir
     note_rmdir(filename)
 
+
 def opendir(filename):
-    from markdown_note.note_opendir import note_opendir
     note_opendir(filename)
+
 
 def main():
     """The main entry.
