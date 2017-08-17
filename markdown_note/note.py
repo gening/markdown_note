@@ -4,7 +4,7 @@
 authors: gening
 date:    2017-08-07 20:09:01
 version: 1.0.0
-desc:    Command Line on Markdown Notes.
+desc:    Shell Commands on Markdown Notes.
 """
 from __future__ import absolute_import
 from __future__ import print_function
