@@ -18,13 +18,12 @@ import re
 import shutil
 import sys
 
-from six.moves import urllib_parse
-
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
 from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import parse_file_name
 from markdown_note.note_lib import str_decode_utf8
+from markdown_note.note_lib import str_encode_base64
 
 # ![abc](xxx_files/image_1.jpg)
 # [abc](xxx_files/doc_1.pdf)
@@ -167,8 +166,8 @@ def deep_copy_file(path_params_dict):
 
 
 def replace_match(match, old_str, new_str):
-    src_base_quoted = urllib_parse.quote(old_str.encode('utf-8'))
-    if match.group(2) == old_str or match.group(2) == src_base_quoted:
+    old_str_base64 = str_encode_base64(old_str)
+    if match.group(2) == old_str or match.group(2) == old_str_base64:
         return match.group(1) + new_str + match.group(3)
     else:
         return match.group(0)

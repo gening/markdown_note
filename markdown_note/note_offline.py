@@ -19,8 +19,6 @@ import shutil
 import sys
 import time
 
-import requests  # http://docs.python-requests.org/
-
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
 from markdown_note.note_lib import SUPPORT_EXT_LIST
@@ -30,6 +28,7 @@ from markdown_note.note_lib import parse_file_name
 from markdown_note.note_lib import create_new_folder
 from markdown_note.note_lib import clean_empty_folder
 from markdown_note.note_lib import str_decode_utf8
+from markdown_note.note_lib import get_url_data
 
 # ![abc](http://www.xyz.com/123.jpg)
 # group(1) = http://www.xyz.com/123.jpg
@@ -89,16 +88,21 @@ def note_offline(filename):
         f.writelines(text_lines)
 
     # clean folder
-    clean_empty_folder(os.path.join(dir_path, folder_name))
+    clean_empty_folder(os.path.join(dir_path, folder_name), warning=False)
+
+
+# import requests  # http://docs.python-requests.org/
+# def download_image(url):
+#     response = requests.get(url)
+#     if response.status_code == 200:
+#         image_data = response.content
+#         return image_data
+#     else:
+#         raise Exception('INTERNET DISCONNECTED')
 
 
 def download_image(url):
-    result = requests.get(url)
-    if result.status_code == 200:
-        image_data = result.content
-        return image_data
-    else:
-        raise Exception('INTERNET DISCONNECTED')
+    return get_url_data(url)
 
 
 def save_image(image_data, image_file):

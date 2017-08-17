@@ -155,9 +155,22 @@ class NoteSideBarDoubleFilesCommand(NoteSideBarCommand):
         destination = os.path.normcase(os.path.abspath(destination))
         for window in sublime.windows():
             for view in window.views():
-                path = os.path.abspath(view.file_name())
-                if os.path.normcase(path) == source:
-                    view.retarget(destination)
+                if view.file_name():
+                    path = os.path.abspath(view.file_name())
+                    if os.path.normcase(path) == source:
+                        # dst may be changed
+                        # in case that destination is dir or lack of .md
+                        # parse src file name
+                        src_dir, src_base, src_ext = note_lib.parse_file_name(source)
+                        # validate dst file name
+                        if os.path.exists(destination) and os.path.isdir(destination):
+                            dst_dir, dst_base, dst_ext = destination, src_base, src_ext
+                        else:
+                            dst_dir, dst_base, dst_ext = note_lib.parse_file_name(destination)
+                            if dst_ext not in note_lib.SUPPORT_EXT_LIST:
+                                dst_ext = src_ext
+                        dst = os.path.join(dst_dir, dst_base + dst_ext)
+                        view.retarget(dst)
 
 
 class NoteSideBarCopyCommand(NoteSideBarDoubleFilesCommand):
