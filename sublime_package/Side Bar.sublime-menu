@@ -11,7 +11,7 @@
     }
   },
   {
-    "caption": "Note Move...",
+    "caption": "Note Rename/Move...",
     "command": "note_side_bar_move",
     "args": {
       "paths": []

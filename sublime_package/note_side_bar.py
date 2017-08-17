@@ -48,16 +48,17 @@ class NoteSideBarCommand(sublime_plugin.WindowCommand):
 
 
 class NoteSideBarSingleFileCommand(NoteSideBarCommand):
-    def __init__(self, sublime_window, desc='', func=None):
+    def __init__(self, sublime_window, desc='', func_queue=None):
         self.desc = desc
-        self.func = func
+        self.func_queue = func_queue
         super(NoteSideBarSingleFileCommand, self).__init__(sublime_window)
 
     def run(self, paths):
         path = self.get_path(paths)
         try:
-            if self.func:
-                self.func(path)
+            for func in self.func_queue:
+                if func:
+                    func(path)
         except OSError as error:
             self.window.status_message('Error: {error}'.format(error=error))
 
@@ -68,36 +69,47 @@ class NoteSideBarSingleFileCommand(NoteSideBarCommand):
 class NoteSideBarRemoveCommand(NoteSideBarSingleFileCommand):
     def __init__(self, sublime_window):
         desc = 'Note remove'
-        func = note.remove
-        super(NoteSideBarRemoveCommand, self).__init__(sublime_window, desc, func)
+        func_queue = [note.remove, self.close_view]
+        super(NoteSideBarRemoveCommand, self).__init__(sublime_window, desc, func_queue)
+
+    @staticmethod
+    def close_view(source, discard=True):
+        source = os.path.normcase(os.path.abspath(source))
+        for window in sublime.windows():
+            for view in window.views():
+                path = os.path.abspath(view.file_name())
+                if os.path.normcase(path) == source:
+                    if discard:
+                        view.set_scratch(True)
+                    view.close()
 
 
 class NoteSideBarOfflineCommand(NoteSideBarSingleFileCommand):
     def __init__(self, sublime_window):
         desc = 'Note offline'
-        func = note.offline
-        super(NoteSideBarOfflineCommand, self).__init__(sublime_window, desc, func)
+        func_queue = [note.offline, note.opendir]
+        super(NoteSideBarOfflineCommand, self).__init__(sublime_window, desc, func_queue)
 
 
 class NoteSideBarMkdirCommand(NoteSideBarSingleFileCommand):
     def __init__(self, sublime_window):
         desc = 'Note mkdir'
-        func = note.mkdir
-        super(NoteSideBarMkdirCommand, self).__init__(sublime_window, desc, func)
+        func_queue = [note.mkdir, note.opendir]
+        super(NoteSideBarMkdirCommand, self).__init__(sublime_window, desc, func_queue)
 
 
 class NoteSideBarRmdirCommand(NoteSideBarSingleFileCommand):
     def __init__(self, sublime_window):
         desc = 'Note rmdir'
-        func = note.rmdir
-        super(NoteSideBarRmdirCommand, self).__init__(sublime_window, desc, func)
+        func_queue = [note.rmdir]
+        super(NoteSideBarRmdirCommand, self).__init__(sublime_window, desc, func_queue)
 
 
 class NoteSideBarOpendirCommand(NoteSideBarSingleFileCommand):
     def __init__(self, sublime_window):
         desc = 'Note opendir'
-        func = note.opendir
-        super(NoteSideBarOpendirCommand, self).__init__(sublime_window, desc, func)
+        func_queue = [note.opendir]
+        super(NoteSideBarOpendirCommand, self).__init__(sublime_window, desc, func_queue)
 
 
 class NoteSideBarDoubleFilesCommand(NoteSideBarCommand):
@@ -129,12 +141,23 @@ class NoteSideBarDoubleFilesCommand(NoteSideBarCommand):
         try:
             if self.func:
                 self.func(source, destination)
+                self.retarget_view(source, destination)
         except OSError as error:
             self.window.status_message('Error: {error}'.format(error=error))
         self.window.run_command('refresh_folder_list')
 
     def description(self):
         return '%s ...' % self.desc
+
+    @staticmethod
+    def retarget_view(source, destination):
+        source = os.path.normcase(os.path.abspath(source))
+        destination = os.path.normcase(os.path.abspath(destination))
+        for window in sublime.windows():
+            for view in window.views():
+                path = os.path.abspath(view.file_name())
+                if os.path.normcase(path) == source:
+                    view.retarget(destination)
 
 
 class NoteSideBarCopyCommand(NoteSideBarDoubleFilesCommand):
