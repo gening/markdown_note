@@ -55,7 +55,7 @@ Usage
 
   > open `xxx_files` folder attached to `xxx.md` file.  
 
-  ​       
+
 Installation
 ------------
 
