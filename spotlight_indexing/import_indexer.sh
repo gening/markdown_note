@@ -20,7 +20,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 echo "macOS system permission required!"
 sudo unzip Markdown.mdimporter.zip Markdown.mdimporter/* -d ${spotlight_lib_dir}
 
-# import 
+# refresh 
 mdimport -r ${spotlight_lib_dir}/Markdown.mdimporter
 
 # list
