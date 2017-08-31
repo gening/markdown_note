@@ -3,7 +3,7 @@
 """
 authors: gening
 date:    2017-06-07 13:48:26
-version: 1.1.0
+version: 1.1.1
 desc:    download online images within a markdown file and save to a local folder.
 usage:   ./note_offline.py <md_file_name>
 """
@@ -21,7 +21,6 @@ import time
 
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
-from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import TRASH_DIR
 from markdown_note.note_lib import TIMESTAMP_FORMAT
 from markdown_note.note_lib import parse_file_name
@@ -41,8 +40,6 @@ def note_offline(filename):
         raise Exception('%s: No such file' % filename)
     # create folder
     dir_path, base_name, ext_name = parse_file_name(filename)
-    if ext_name not in SUPPORT_EXT_LIST:
-        raise Exception('UNKNOWN FILE TYPE')
     folder_name = base_name + FOLDER_SUFFIX
     create_new_folder(os.path.join(dir_path, folder_name))
 

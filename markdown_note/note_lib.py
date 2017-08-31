@@ -2,7 +2,7 @@
 """
 authors: gening
 date:    2017-08-08 11:53:53
-version: 1.0.0
+version: 1.0.1
 desc:    constraints
 
 """
@@ -17,10 +17,15 @@ TIMESTAMP_FORMAT = '%H%M%S'
 
 
 # shared functions
-def parse_file_name(filename):
+def parse_file_name(filename, ignore_unsupported_ext=False):
     dir_path, base_ext = os.path.split(filename)
-    base, ext = os.path.splitext(base_ext)
-    return dir_path, base, ext
+    base_name, ext_name = os.path.splitext(base_ext)
+    if ext_name not in SUPPORT_EXT_LIST:
+        if ignore_unsupported_ext:
+            ext_name = None
+        else:
+            raise Exception('UNKNOWN FILE TYPE')
+    return dir_path, base_name, ext_name
 
 
 def create_new_folder(directory):

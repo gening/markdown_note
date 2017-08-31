@@ -3,7 +3,7 @@
 """
 authors: gening
 date:    2017-08-08 11:41:26
-version: 1.0.0
+version: 1.0.1
 desc:    delete a markdown file and its folder.
 usage:   ./note_copy.py <md_file_name>
 """
@@ -19,7 +19,6 @@ from zipfile import ZipFile
 
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
-from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import TRASH_DIR
 from markdown_note.note_lib import TIMESTAMP_FORMAT
 from markdown_note.note_lib import parse_file_name
@@ -32,8 +31,6 @@ def note_remove(filename, backup=True):
         raise Exception('%s: No such file' % filename)
     # parse filename name
     dir_path, base_name, ext_name = parse_file_name(filename)
-    if ext_name not in SUPPORT_EXT_LIST:
-        raise Exception('UNKNOWN FILE TYPE')
     folder = os.path.join(dir_path, base_name + FOLDER_SUFFIX)
 
     if backup:

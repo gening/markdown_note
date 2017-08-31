@@ -3,7 +3,7 @@
 """
 authors: gening
 date:    2017-06-07 13:48:26
-version: 1.1.0
+version: 1.1.1
 desc:    make a copy of a markdown file and its folder.
          meanwhile, the title, and images and files links are updated.
 usage:   ./note_copy.py <src> <dst>
@@ -20,7 +20,6 @@ import sys
 
 sys.path.append(os.path.join(os.path.split(os.path.abspath(__file__))[0], '..'))
 from markdown_note.note_lib import FOLDER_SUFFIX
-from markdown_note.note_lib import SUPPORT_EXT_LIST
 from markdown_note.note_lib import parse_file_name
 from markdown_note.note_lib import str_decode_utf8
 from markdown_note.note_lib import str_encode_base64
@@ -69,8 +68,6 @@ def get_path_params_dict(src, dst):
         raise Exception('%s is a directory (skipped)' % src)
     # parse src file name
     src_dir, src_base, src_ext = parse_file_name(src)
-    if src_ext not in SUPPORT_EXT_LIST:
-        raise Exception('UNKNOWN FILE TYPE')
     src_folder = os.path.join(src_dir, src_base + FOLDER_SUFFIX)
 
     # validate and parse dst file name
@@ -84,7 +81,7 @@ def get_path_params_dict(src, dst):
     else:
         # parse dst file name
         dst_dir, dst_base, dst_ext = parse_file_name(dst)
-        if dst_ext not in SUPPORT_EXT_LIST:
+        if dst_ext is None:
             dst_ext = src_ext
             dst = os.path.join(dst_dir, dst_base + dst_ext)
     dst_folder = os.path.join(dst_dir, dst_base + FOLDER_SUFFIX)
