@@ -80,7 +80,7 @@ def get_path_params_dict(src, dst):
         dst = os.path.join(dst_dir, dst_base + dst_ext)
     else:
         # parse dst file name
-        dst_dir, dst_base, dst_ext = parse_file_name(dst)
+        dst_dir, dst_base, dst_ext = parse_file_name(dst, ignore_unsupported_ext=True)
         if dst_ext is None:
             dst_ext = src_ext
             dst = os.path.join(dst_dir, dst_base + dst_ext)
